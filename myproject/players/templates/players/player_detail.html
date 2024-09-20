@@ -1,0 +1,17 @@
+<!-- players/templates/players/player_detail.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Detail hráče{% endblock %}
+
+{% block content %}
+  <h2>Detail hráče</h2>
+  <p><strong>ID hráče:</strong> {{ player.id_player }}</p>
+  <p><strong>Jméno:</strong> {{ player.first_name }}</p>
+  <p><strong>Příjmení:</strong> {{ player.last_name }}</p>
+  <p><strong>Rok narození:</strong> {{ player.birth_year }}</p>
+  <p><strong>Klub:</strong> {{ player.club }}</p>
+
+  <a href="{% url 'update_player' player.pk %}">Upravit hráče</a>
+  <a href="{% url 'delete_player' player.pk %}">Smazat hráče</a>
+  <a href="{% url 'players' %}">Zpět na seznam hráčů</a>
+{% endblock %}

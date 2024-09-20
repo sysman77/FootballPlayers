@@ -1,0 +1,13 @@
+<!-- players/templates/players/delete_player.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Smazání hráče{% endblock %}
+
+{% block content %}
+  <h2>Opravdu chcete smazat hráče {{ player.first_name }} {{ player.last_name }}?</h2>
+  <form method="post">
+      {% csrf_token %}
+      <button type="submit">Ano, smazat</button>
+  </form>
+  <a href="{% url 'players' %}">Zpět na seznam hráčů</a>
+{% endblock %}

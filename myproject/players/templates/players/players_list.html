@@ -1,0 +1,35 @@
+<!-- players/templates/players/players_list.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Seznam hráčů{% endblock %}
+
+{% block content %}
+  <h2>Seznam hráčů</h2>
+  <ul>
+    {% for player in players %}
+      <li>
+        <a href="{% url 'player_detail' player.pk %}">{{ player.first_name }} {{ player.last_name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if players.has_previous %}
+        <a href="?page=1">&laquo; první</a>
+        <a href="?page={{ players.previous_page_number }}">« předchozí</a>
+      {% endif %}
+
+      <span class="current">
+        Stránka {{ players.number }} z {{ players.paginator.num_pages }}.
+      </span>
+
+      {% if players.has_next %}
+        <a href="?page={{ players.next_page_number }}">další »</a>
+        <a href="?page={{ players.paginator.num_pages }}">&raquo; poslední</a>
+      {% endif %}
+    </span>
+  </div>
+
+  <a href="{% url 'add_player' %}">Přidat hráče</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!-- players/templates/players/update_player.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Aktualizace hráče{% endblock %}
+
+{% block content %}
+  <h2>Aktualizovat hráče: {{ player.first_name }} {{ player.last_name }}</h2>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Aktualizovat</button>
+  </form>
+  <a href="{% url 'player_detail' player.pk %}">Zpět na detail hráče</a>
+{% endblock %}

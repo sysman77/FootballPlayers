@@ -1,0 +1,9 @@
+<!-- core/templates/core/logout.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<h2>You have been logged out successfully.</h2>
+<a href="{% url 'home' %}">Return to Home</a>
+{% endblock %}

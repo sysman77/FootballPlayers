@@ -1,0 +1,12 @@
+.pagination {
+    display: inline-block;
+}
+
+.pagination .step-links a {
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.pagination .current {
+    font-weight: bold;
+}
