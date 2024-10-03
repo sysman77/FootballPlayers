@@ -5,19 +5,30 @@
 
 {% block content %}
   <h2>Seznam hráčů</h2>
+
+  <!-- Vyhledávací formulář -->
+  <form method="GET" action="{% url 'players' %}">
+    <input type="text" name="q" placeholder="Vyhledat hráče" value="{{ query|default:'' }}">
+    <button type="submit">Vyhledat</button>
+  </form>
+
+  <!-- Seznam hráčů -->
   <ul>
     {% for player in players %}
       <li>
         <a href="{% url 'player_detail' player.pk %}">{{ player.first_name }} {{ player.last_name }}</a>
       </li>
+    {% empty %}
+      <li>Nebyli nalezeni žádní hráči.</li>
     {% endfor %}
   </ul>
 
+  <!-- Stránkování -->
   <div class="pagination">
     <span class="step-links">
       {% if players.has_previous %}
-        <a href="?page=1">&laquo; první</a>
-        <a href="?page={{ players.previous_page_number }}">« předchozí</a>
+        <a href="?page=1{% if query %}&q={{ query }}{% endif %}">&laquo; první</a>
+        <a href="?page={{ players.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">« předchozí</a>
       {% endif %}
 
       <span class="current">
@@ -25,8 +36,8 @@
       </span>
 
       {% if players.has_next %}
-        <a href="?page={{ players.next_page_number }}">další »</a>
-        <a href="?page={{ players.paginator.num_pages }}">&raquo; poslední</a>
+        <a href="?page={{ players.next_page_number }}{% if query %}&q={{ query }}{% endif %}">další »</a>
+        <a href="?page={{ players.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">&raquo; poslední</a>
       {% endif %}
     </span>
   </div>

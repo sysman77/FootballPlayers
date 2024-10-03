@@ -8,13 +8,23 @@ from django.core.paginator import Paginator
 
 # View pro zobrazení seznamu hráčů
 def players_list(request):
-    player_list = Player.objects.all()  # Načtení všech hráčů z databáze
+    # Získání vyhledávacího dotazu z GET parametru
+    query = request.GET.get('q')
+
+    # Načtení všech hráčů, nebo filtrovaných hráčů na základě vyhledávání
+    if query:
+        player_list = Player.objects.filter(first_name__icontains=query) | Player.objects.filter(
+            last_name__icontains=query)
+    else:
+        player_list = Player.objects.all()
+
+
     paginator = Paginator(player_list, 10)  # 10 hráčů na stránku
 
     page_number = request.GET.get('page')  # Získání čísla stránky z GET parametru
     players = paginator.get_page(page_number)  # Načtení hráčů pro danou stránku
 
-    return render(request, 'players/players_list.html', {'players': players})
+    return render(request, 'players/players_list.html', {'players': players, 'query': query})
 
 def add_player(request):
     if request.method == 'POST':
